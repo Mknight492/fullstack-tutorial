@@ -10,6 +10,8 @@ const resolvers = require('./resolvers');
 
 const isEmail = require('isemail');
 
+const internalEngineDemo = require('./engine-demo');
+
 const store = createStore();
 
 const server = new ApolloServer({
@@ -31,7 +33,11 @@ const server = new ApolloServer({
     dataSources: () => ({
       launchAPI: new LaunchAPI(),
       userAPI: new UserAPI({ store }),
-    })
+    }),
+    engine: {
+        apiKey: process.env.ENGINE_API_KEY,
+        ...internalEngineDemo,
+      },
   });
 
   
